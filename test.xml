@@ -27,7 +27,9 @@ Connection: close
     <response-encoding>true</response-encoding>
     <source-address>51.16.22.166</source-address>
     <issueDetail>The &lt;b&gt;User-Agent&lt;/b&gt; HTTP header appears to be vulnerable to SQL injection attacks. The payloads &lt;b&gt;85085635' or 2604=2604-- &lt;/b&gt; and &lt;b&gt;94952864' or 3195=3190-- &lt;/b&gt; were each submitted in the User-Agent HTTP header. These two requests resulted in different responses, indicating that the input is being incorporated into a SQL query in an unsafe way. &lt;br&gt;&lt;br&gt;Note that automated difference-based tests for SQL injection flaws can often be unreliable and are prone to false positive results. You should manually review the reported requests and responses to confirm whether a vulnerability is actually present.</issueDetail>
-    <issueDetailItems/>
+    <issueDetailItems>
+      role
+    </issueDetailItems>
     <serialNumber>5656486172163780608</serialNumber>
     <url>https://commonag-portal-dit.nj.adp.com/public/unauthorizedMessage.htm</url>
   </vulnerability>
@@ -3058,8 +3060,8 @@ Connection: close
     <url>https://commonag-portal-dit.nj.adp.com/static/R9.6.3/portlets/portal/theme/js/sessionTimeOut.js</url>
   </vulnerability>
   <vulnerability>
-    <attack_type>Information Leakage</attack_type>
-    <originalattack>Input returned in response (reflected)</originalattack>
+    <attack_type>SQL-Injection</attack_type>
+    <originalattack>SQL injection</originalattack>
     <host>https://commonag-portal-dit.nj.adp.com</host>
     <request-data>GET /wps/myportal/sitemap/Manager/Home/NasWelcome/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOItDc2MPCzcDbz9A30NDAIt_DxCgwItjYMNTIEKInErMDAwIU6_AQ7gaEBIf0FuaCgAV2dKMw!!/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_9162H8G0KOQM00Q8NHURQ93S80/res/id=QCPajax/c=cacheLevelPage/=/?role=MANAGERvy400krwlv&amp;links=APPROVALS%2CNOTIFICATIONS%2CEMPACTIVITIES&amp;randomId=1525967593387 HTTP/1.1
 Host: commonag-portal-dit.nj.adp.com
@@ -3074,6 +3076,7 @@ Accept-Language: en-US,en;q=0.8
 Cookie: PMData=PMV61jhyrgYvO6aIxW6h1h35AQtSc8GpkeIy%2FK2h2iEJI3Cg3MdLbUQplUQKyng9I%2F0KAeaAvEk4xDslcVPdyBcHGsTA%3D%3D; TS668652=ba9f55db866547eda25f5eee6681cf8a4c0daf376b02b0b35af46107f52226c59724c42f9c14928c5feb368a; lang=en_US; TS0110318c=01f4dc39ee63ea61507b248c49b538700a7fc6c094fa7f9e95a62aefcd02c54e3e516852e24757a7a13e4daa664ebe56c58cfa8dce186e61b3efebbb575cc5e196d3efa6fce1b3e07e14b75e7f26224f44bbed7d8074660923276a0cfd44803880f57513463ff8b278525bfc900d33f1dddd802be8; BCSI-CS-d595e961ff577472=2; ADPLangLocaleCookie=en_US; SMSESSION=mYBTJ4pq+IBCB00l8Qhjx7Xoj/sZRhXd/nHwhIfRwnuhUOI3k/ppDQn/pgk++z1O6//oNuYl2geZJxC0HG0Rgs56wR+vmZyEtbfuDRl6Wu1eBn/DbSIOJ+a4hg4Or/rkRcWDN4nblKOa40ibaILhNhrYwY1Cxm+ydgCOTveAQ6hmqIEUOMtIMksFUE+lNOpEvGe72ZcJvM5nZCkxQrsKu3VHrm2mZ0s1Ldm/ocISHVTtuxKAImMrkN6zo8NgrMXB9bgiKMD2wzTJyZK6DB0P/Qach4LrJ5PQ/GNy99w7vAaPKowaxK+4nI5FxqHre0Bbfgr6FKaoUJCFyFK3yxi99+la2ImiIGDUJQplbeQ8Bc/2doWwRk2XPPbuIzI7IbIAnuKS6JDh0y35qf8DE260a0fH6MCAEfPAMC+KyjAT204KB2K8Kp19x3g0EPJsgD4QE07HRTf1DUfhZXyTHAOoup4sxchqy7goL/CzU8PJOMCUkU3vViWxtt8Dt7Gz1J19E9J/LPyoeiU1g5yBK+W8UqI+S75nXl0jMQ93gQ84qDzXNySqhSNMY72os2IRatRis0taGjSZkEr1W9TVCVP+4nTrgghuW+QoiRYn6A6orj0MkgYRrnsr5JUk+Lyp6goJevXMna1ZgO6SYTd1tyFpS1eEWHff40aA1s7LpEVcTiFuS/lblBK7C8bRNeoEcL/vmHjtJcHYjCevXJoMiFZLKC11hiMQ5WHoWM1CT6chPGrKMMppmhrDnxyB2bUB+X9t8MiuSdtpBjAO4HTXhz90sPo7nWgnhyZDx+Jm7sHtb7J0JxzsYRY+69ZQdk9k6OkB1/RUfFFYWObpe+NuTunuVMHJ1SJ7LW1A7b3ZnN2J9sADKwPmNI0ReamHwtFPVPAl0AhOO6DGHfEkX7Egop9RHdvkku770oETcVQfzz/kdgKJctrUpaNv2RPW2rfy4sO6soe0y4iEt625SHwe8LTKIrxGViamtWPJkPG65TUEy5nsARyWgRrqzib9lhxSDQox9Ai2oel6j2tQdruffw2ZVeTilWOXUeXEgGlUHfpCth6Y9RVJO2YetY5U1voPonl7ZGUWWLu6ziH/Qm39rzrj38FGwseExB+7HwCWFfsGZHzVTQ3P6ShuY65spYpd8j0isi/EJBPRgANRu6sXZQGmTX5L3tHnC9Fs; JSESSIONID=00008k0huIKGTFYaUofM5k6ogdx:-1; BIGipServerp_commonag-portal-dit.nj.adp.com_PTNAS01=!YnFvzA4sqzkELCPG6rIMwCzav47ldHYXSFQHMG8RBlp9507hFMWQR2zGh7ww7TmRjvryNHJeCOCgTg==; ADPADMIN=Portal^App^PTNAS01; LtpaToken2=/3xkrDdTIUJCriuig3cvLMGGi46puMpwxy5DzKK5CrOE7zStnJNGV9t5eBfZvIiTmG355TjtD4A0V5CN9RjEM4lCNCNfv8qLNfgNe/OjacNWBiIcoTO6EvfpGYGzOaiEAE+7u/LHWab4arT4KOGx/RSTTANA8/+Ty1+Eevh7fnGW/0AoWNVOF+t4PAbN6zeqXLj5+tHD5C43pbW6UoWvdQDFGJAEmHnUDjmtxwwqPWBofDO6q7l8wDbaNwuyKOiBeyUQWVLc1et+2u6bzj1CGchwEU9lslZxspJfkcZ7Y3WlyLqdDpZc39l6wZI9bLQ0qRD5SH1ttH0iowlzVb2EP4s/QA7bOXs1unx5x1JNbIoEEu18U6p+JljaKFMbjAbsreCsIBsnxvAqWNmb+xlFrQ==; A5=WVVUThdZVlNfVE4HXg8KDgoKUgFZVVROF0hVVl9JB19XSlZVQ19fFldbVFtdX0gWW15XU1QWSkhbWU5TTlNVVF9I; A3=odNurCPa3bDRD+oPLC+uNf7BVJkEd0hcJRSuXzQ0WzzQGzYjVdH1570s4IQ1ePVT; USERSESSIONID=pYVfdopdloMpuW3aO2zS7nppRpM=; TS019ad6b9=01f6109eb58f0a359dd1d943152d91dfc6fb539936224e38b6571cc65c3a26f93c0b6f445022657e0e2ebfc459b205d6336c948b34083d7978f3f0b6d0c9102cac01e567ac357266b1f810badf3c9b68530ead7cb9
 
 </request-data>
+    <parameter>role</parameter>
     <header>Host</header>
     <header>Connection</header>
     <header>X-Requested-With</header>
@@ -3091,7 +3094,9 @@ Cookie: PMData=PMV61jhyrgYvO6aIxW6h1h35AQtSc8GpkeIy%2FK2h2iEJI3Cg3MdLbUQplUQKyng
     <response-encoding>true</response-encoding>
     <source-address>51.16.22.166</source-address>
     <issueDetail>The value of the &lt;b&gt;role&lt;/b&gt; request parameter is copied into the application's response.</issueDetail>
-    <issueDetailItems/>
+    <issueDetailItems>
+      role
+    </issueDetailItems>
     <serialNumber>2586953797874277376</serialNumber>
     <url>https://commonag-portal-dit.nj.adp.com/wps/myportal/sitemap/Manager/Home/NasWelcome/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOItDc2MPCzcDbz9A30NDAIt_DxCgwItjYMNTIEKInErMDAwIU6_AQ7gaEBIf0FuaCgAV2dKMw!!/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_9162H8G0KOQM00Q8NHURQ93S80/res/id=QCPajax/c=cacheLevelPage/=/</url>
   </vulnerability>
@@ -4175,4 +4180,3 @@ Connection: close
     <url>https://commonag-portal-dit.nj.adp.com/public/unauthorizedMessage.htm</url>
   </vulnerability>
 </scanner_vulnerabilities>
-
