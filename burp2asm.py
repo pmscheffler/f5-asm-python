@@ -19,306 +19,163 @@ def prettify(elem):
 
 debugApp = 0
 
-XSL='''
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-xmlns:b64="https://github.com/ilyakharlamov/xslt_base64" 
-xmlns:msxsl="urn:schemas-microsoft-com:xslt"  
-xmlns:user="urn:my-scripts" >
-
-<xsl:output omit-xml-declaration="yes" indent="yes"/>
-<xsl:template match="/">
-  <scanner_vulnerabilities>
-      <xsl:for-each select="//issue">
-        <vulnerability>
-          <xsl:variable name="Attack" select="current()/name"/>
-          <xsl:choose>
-              <xsl:when test="contains($Attack, 'OS command injection')">              <attack_type>Injection Attempt</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'SQL injection')">              <attack_type>SQL-Injection</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'SQL injection (second order)')">              <attack_type>SQL-Injection</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'ASP.NET tracing enabled')">              <attack_type>Information Leakage</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'File path traversal')">              <attack_type>Path Traversal</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'XML external entity injection')">              <attack_type>XML Parser Attack</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'LDAP injection')">              <attack_type>LDAP Injection</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'XPath injection')">              <attack_type>XPath Injection</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'XML injection')">              <attack_type>XML Parser Attack</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'ASP.NET debugging enabled')">              <attack_type>Information Leakage</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'HTTP PUT method is enabled')">              <attack_type>HTTP Parser Attack</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Out-of-band resource load (HTTP)')">              <attack_type>HTTP Parser Attack</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'File path manipulation')">              <attack_type>Path Traversal</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'PHP code injection')">              <attack_type>Injection Attempt</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Server-side JavaScript code injection')">              <attack_type>Injection Attempt</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Perl code injection')">              <attack_type>Injection Attempt</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Ruby code injection')">              <attack_type>Injection Attempt</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Python code injection')">              <attack_type>Injection Attempt</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Expression Language injection')">              <attack_type>Injection Attempt</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Unidentified code injection')">              <attack_type>Injection Attempt</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Server-side template injection')">              <attack_type>Injection Attempt</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'SSI injection')">              <attack_type>Injection Attempt</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cross-site scripting (stored)')">              <attack_type>Cross Site Scripting (XSS)</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'HTTP response header injection')">              <attack_type>HTTP Response Splitting</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cross-site scripting (reflected)')">              <attack_type>Cross Site Scripting (XSS)</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Client-side template injection')">              <attack_type>Injection Attempt</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cross-site scripting (DOM-based)')">              <attack_type>Cross Site Scripting (XSS)</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cross-site scripting (reflected DOM-based)')">              <attack_type>Cross Site Scripting (XSS)</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cross-site scripting (stored DOM-based)')">              <attack_type>Cross Site Scripting (XSS)</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'JavaScript injection (DOM-based)')">              <attack_type>Injection Attempt</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'JavaScript injection (reflected DOM-based)')">              <attack_type>Injection Attempt</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'JavaScript injection (stored DOM-based)')">              <attack_type>Injection Attempt</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Path-relative style sheet import')">              <attack_type>Path Traversal</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Client-side SQL injection (DOM-based)')">              <attack_type>SQL-Injection</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Client-side SQL injection (reflected DOM-based)')">              <attack_type>SQL-Injection</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Client-side SQL injection (stored DOM-based)')">              <attack_type>SQL-Injection</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'WebSocket hijacking (DOM-based)')">              <attack_type>WebSocket Parser Attack</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'WebSocket hijacking (reflected DOM-based)')">              <attack_type>WebSocket Parser Attack</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'WebSocket hijacking (stored DOM-based)')">              <attack_type>WebSocket Parser Attack</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Local file path manipulation (DOM-based)')">              <attack_type>Path Traversal</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Local file path manipulation (reflected DOM-based)')">              <attack_type>Path Traversal</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Local file path manipulation (stored DOM-based)')">              <attack_type>Path Traversal</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Client-side XPath injection (DOM-based)')">              <attack_type>XPath Injection</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Client-side XPath injection (reflected DOM-based)')">              <attack_type>XPath Injection</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Client-side XPath injection (stored DOM-based)')">              <attack_type>XPath Injection</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Client-side JSON injection (DOM-based)')">              <attack_type>JSON Parser Attack</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Client-side JSON injection (reflected DOM-based)')">              <attack_type>Cross Site Scripting (XSS)</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Client-side JSON injection (stored DOM-based)')">              <attack_type>Cross Site Scripting (XSS)</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Flash cross-domain policy')">              <attack_type>Cross-site Request Forgery</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Silverlight cross-domain policy')">              <attack_type>Cross-site Request Forgery</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cross-origin resource sharing')">              <attack_type>Cross-site Request Forgery</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cross-origin resource sharing: arbitrary origin trusted')">              <attack_type>Cross-site Request Forgery</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cross-origin resource sharing: unencrypted origin trusted')">              <attack_type>Weak clientaccesspolicy.xml or crossdomain.xml policy</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cross-origin resource sharing: all subdomains trusted')">              <attack_type>Weak clientaccesspolicy.xml or crossdomain.xml policy</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cross-site request forgery')">              <attack_type>Cross-site Request Forgery</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'SMTP header injection')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cleartext submission of password')">              <attack_type>Authentication/Authorization Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'External service interaction (DNS)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'External service interaction (HTTP)')">              <attack_type>Open Redirect</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'External service interaction (SMTP)')">              <attack_type>Other Applications Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Referer-dependent response')">              <attack_type>Other Applications Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Spoofable client IP address')">              <attack_type>HTTP Parser Attack</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'User agent-dependent response')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Password returned in later response')">              <attack_type>Information Leakage</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Password submitted using GET method')">              <attack_type>Information Leakage</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Password returned in URL query string')">              <attack_type>Information Leakage</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'SQL statement in request parameter')">              <attack_type>SQl-Injection</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cross-domain POST')">              <attack_type>Cross-site Request Forgery</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'ASP.NET ViewState without MAC enabled')">              <attack_type>Other Applications Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'XML entity expansion')">              <attack_type>XML Parser Attack</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Long redirection response')">              <attack_type>Large request body allowed</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Serialized object in HTTP message')">              <attack_type>Information Leakage</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Duplicate cookies set')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Input returned in response (stored)')">              <attack_type>Information Leakage</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Input returned in response (reflected)')">              <attack_type>Information Leakage</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Suspicious input transformation (reflected)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Suspicious input transformation (stored)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Open redirection (reflected)')">              <attack_type>Open Redirect</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Open redirection (stored)')">              <attack_type>Open Redirect</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Open redirection (DOM-based)')">              <attack_type>Open Redirect</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Open redirection (reflected DOM-based)')">              <attack_type>Open Redirect</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Open redirection (stored DOM-based)')">              <attack_type>Open Redirect</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'SSL cookie without secure flag set')">              <attack_type>Set-Cookie does not use Secure keyword</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cookie scoped to parent domain')">              <attack_type>HTTP Parser Attack</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cross-domain Referer leakage')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cross-domain script include')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cookie without HttpOnly flag set')">              <attack_type>Set-Cookie does not use HTTPOnly keyword</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Session token in URL')">              <attack_type>Information Leakage</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Password field with autocomplete enabled')">              <attack_type>Autocomplete not disabled on login form</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Password value set in cookie')">              <attack_type>Logins sent over unencrypted</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'File upload functionality')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Frameable response (potential Clickjacking)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Browser cross-site scripting filter disabled')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'HTTP TRACE method is enabled')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cookie manipulation (DOM-based)')">              <attack_type>Abuse of Functionality</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cookie manipulation (reflected DOM-based)')">              <attack_type>Abuse of Functionality</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cookie manipulation (stored DOM-based)')">              <attack_type>Abuse of Functionality</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Ajax request header manipulation (DOM-based)')">              <attack_type>Abuse of Functionality</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Ajax request header manipulation (reflected DOM-based)')">              <attack_type>Abuse of Functionality</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Ajax request header manipulation (stored DOM-based)')">              <attack_type>Abuse of Functionality</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Denial of service (DOM-based)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Denial of service (reflected DOM-based)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Denial of service (stored DOM-based)')">              <attack_type>Denial of Service</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'HTML5 web message manipulation (DOM-based)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'HTML5 web message manipulation (reflected DOM-based)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'HTML5 web message manipulation (stored DOM-based)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'HTML5 storage manipulation (DOM-based)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'HTML5 storage manipulation (reflected DOM-based)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'HTML5 storage manipulation (stored DOM-based)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Link manipulation (DOM-based)')">              <attack_type>Parameter Tampering</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Link manipulation (reflected DOM-based)')">              <attack_type>Parameter Tampering</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Link manipulation (stored DOM-based)')">              <attack_type>Parameter Tampering</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Link manipulation (reflected)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Link manipulation (stored)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Document domain manipulation (DOM-based)')">              <attack_type>Open Redirect</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Document domain manipulation (reflected DOM-based)')">              <attack_type>Open Redirect</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Document domain manipulation (stored DOM-based)')">              <attack_type>Open Redirect</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'DOM data manipulation (DOM-based)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'DOM data manipulation (reflected DOM-based)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'DOM data manipulation (stored DOM-based)')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'CSS injection (reflected)')">              <attack_type>Injection Attempt</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'CSS injection (stored)')">              <attack_type>Injection Attempt</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Client-side HTTP parameter pollution (reflected)')">              <attack_type>Parameter pollution allowed</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Client-side HTTP parameter pollution (stored)')">              <attack_type>Parameter pollution allowed</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Form action hijacking (reflected)')">              <attack_type>Parameter Tampering</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Form action hijacking (stored)')">              <attack_type>Parameter Tampering</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Database connection string disclosed')">              <attack_type>Information Leakage</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Source code disclosure')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Directory listing')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Email addresses disclosed')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Private IP addresses disclosed')">              <attack_type>Information Leakage</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Social security numbers disclosed')">              <attack_type>Information Leakage - SSN</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Credit card numbers disclosed')">              <attack_type>Information Leakage - Credit Card</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Private key disclosed')">              <attack_type>Information Leakage</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Robots.txt file')">              <attack_type>Information Leakage</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Cacheable HTTPS response')">              <attack_type>Form caching detected</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Base64-encoded data in parameter')">              <attack_type>Detection Evasion</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Multiple content types specified')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'HTML does not specify charset')">              <attack_type>HTML Parser Attack</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'HTML uses unrecognized charset')">              <attack_type>HTML Parser Attack</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Content type incorrectly stated')">              <attack_type>HTML Parser Attack</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Content type is not specified')">              <attack_type>HTML Parser Attack</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'SSL certificate')">              <attack_type>Mixed content found</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Unencrypted communications')">              <attack_type>Mixed content found</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Strict transport security not enforced')">              <attack_type>Mixed content found</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Mixed content')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Extension generated issue')">              <attack_type>Other Application Attacks</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Frameable response (potential Clickjacking)')">              <attack_type>Clickjacking</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Path-relative style sheet import')">              <attack_type>Path traversal</attack_type>            </xsl:when>
-              <xsl:when test="contains($Attack, 'Base64-encoded data in parameter')">              <attack_type>Detection Evasion</attack_type>            </xsl:when>
-            <xsl:otherwise>
-              <attack_type>Other Application Attacks</attack_type>
-            </xsl:otherwise>
-          </xsl:choose>
-          <originalattack><xsl:value-of select="name" /></originalattack>
-          <host><xsl:value-of select="host"/></host>
-          <request><xsl:value-of select="requestresponse/request"/></request>
-          <url><xsl:value-of select="path"/></url>
-          <cookie></cookie>
-          <threat><xsl:value-of select="severity"/></threat>
-          <xsl:variable name="threat_score" select="confidence"/>
-          <!--<xsl:choose>
-            <xsl:when test="$threat_score='Certain'">
-              <threat>High</threat>
-            </xsl:when>
-            <xsl:when test="$threat_score='Firm'">
-              <threat>Medium</threat>
-            </xsl:when>
-            <otherwise>
-              <threat>Low</threat>
-            </otherwise>
-          </xsl:choose> -->
-          <score></score>
-          <severity><xsl:value-of select="severity"/></severity>
-          <status>open</status>
-          <opened>1</opened>
-          <method><xsl:value-of select="requestresponse/request/@method"/></method>
-          <response-encoding><xsl:value-of select="requestresponse/request/@base64"/></response-encoding>
-          <source-address><xsl:value-of select="host/@ip"/></source-address>
-      </vulnerability>
-      </xsl:for-each>
-    </scanner_vulnerabilities>
-</xsl:template>
-</xsl:stylesheet>
-'''
 
 
+def openReport(XSL, reportFile):
+    # reportFile = './report_.xml'
+    dom = etree.parse(reportFile)
+    transform = etree.XSLT(etree.fromstring(XSL))
+    s = str(transform(dom))
+    tree = ElementTree.fromstring(s)
+    # ElementTree.dump(tree)
+    return tree
 
-dom = etree.parse('./report_.xml')
+def addParam(f5Vuln, req, idi):
+  if idi != None:
+    for paramItem in req[1].split("&"):
+      param = paramItem.split("=")
+      if param[0] in idi:
+        xmlOutParam = SubElement(f5Vuln, 'parameter')
+        xmlOutParam.text = param[0]
+        foundone = 1
+        break
 
-transform = etree.XSLT(etree.fromstring(XSL))
-s = str(transform(dom))
-tree = ElementTree.fromstring(s)
 
+with open('./xsl.xsd', 'r') as file:
+    XSL = file.read().replace('\n', '')
+
+tree = openReport(XSL, './report_.xml')
 foundone = 0
 rootOutput = ElementTree.Element('scanner_vulnerabilities')
 
-for child in tree:
-  xmlOutVuln = SubElement(rootOutput, "vulnerability")
+for burpIssue in tree:
+  rows = 1
+  idiLines = None
 
-  hostname = ""
-  path = ""
+  issueDetailItems = burpIssue.find('issueDetailItems')
 
-  for subitem in child:
+  if issueDetailItems.text != None:
+    # print("qqq issueDetailItems:")
+    # print(issueDetailItems.text)
+    # idiLines = "".join([s for s in issueDetailItems.text.splitlines() if s.strip("\r\n")])
 
-    if subitem.tag == "host":
-      hostname = subitem.text
+    idiLinesT = issueDetailItems.text.splitlines()
 
-    if subitem.tag == "url":
-      path = subitem.text
+    # rowElem = SubElement(f5Vuln, 'rows')
+    # rowElem.text = idiRows
+
+    idiLines = []
+    for iditem in idiLinesT:
+      if iditem != None:
+        idiLines.append(iditem)
+        splititem = iditem.lstrip().split(" ")
+        # print("Item: " + iditem)
+        # if len(splititem) > 1:
+        #   print("Split Item: " + splititem[1] + " (" + burpIssue.find('serialNumber').text + ")")
+        #   print(splititem in idiLines)
+        
+    idiRows = len(idiLines)
+    # print("rows: " + str(idiRows) + " (" + burpIssue.find('serialNumber').text + ")")
+    rows = idiRows - 2
+
+    cookiesAdded = []
+
+  for cnt in range(0, rows):
+    f5Vuln = SubElement(rootOutput, "vulnerability")
+
+    hostname = ""
+    path = ""
+
+    for burpIssueItem in burpIssue:
+
+      if burpIssueItem.tag == "host":
+        hostname = burpIssueItem.text
+
+      if burpIssueItem.tag == "url":
+        path = burpIssueItem.text
+      
+      if burpIssueItem.tag == "request":
+        text_bytes = base64.b64decode(burpIssueItem.text)
+        requestData = text_bytes.decode('ascii')
+        xmlOutRequest = SubElement(f5Vuln, 'request-data')
+        xmlOutRequest.text = requestData
+
+        # # strip out the HTTP/x.x 
+          # get the URL info from the first line
+        requestLines = requestData.split('\r\n')
+
+        if requestLines[0][0:3] == "GET":
+          if debugApp == 1:
+            print("Request: " + requestLines[0])
+
+          if requestLines[0].find("?") > 0:
+            req = requestLines[0].split("?")
+            addParam(f5Vuln, req, idiLines)
+              # print(param[0] + "=" + param[1])
     
-    if subitem.tag == "request":
-      text_bytes = base64.b64decode(subitem.text)
-      requestData = text_bytes.decode('ascii')
+            # foundone = 1
 
-      # if debugApp == 1: 
-      # print(requestData)
-      # # strip out the HTTP/x.x 
-      # get the URL info from the first line
-      requestLines = requestData.split('\r\n')
+        if requestLines[0][0:4] == "POST":
+          # find the blank row and grab the data after that
+          rowCount = 0
+          for postline in requestLines:
+            # print("PostLine(" + str(rowCount) + ") " + postline)
+            if postline == "":
+              payload = requestLines[rowCount + 1]
+              addParam(f5Vuln, req, idiLines)
+              break
+            rowCount +=1
 
-      if requestLines[0][0:3] == "GET":
-        if debugApp == 1:
-          print("Request: " + requestLines[0])
+          foundone = 0
 
-        if requestLines[0].find("?") > 0:
-          req = requestLines[0].split("?")
+        _, headers = requestData.split('\r\n',1)
 
-          querystring = req[1].split("&")
+        message = email.message_from_file(StringIO(headers))
 
-          for paramItem in querystring:
-            param = paramItem.split("=")
-            xmlOutParam = SubElement(xmlOutVuln, 'parameter')
-            xmlOutParam.text = param[0]
-            # print(param[0] + "=" + param[1])
-  
-          # foundone = 1
+        # construct a dictionary containing the headers
+        headers = dict(message.items())
+        for header in headers:
+          if header.lower() == "cookie":
+            cookieBreakOut = False
+            if idiLines != None:
+              cookies = headers[header].split("; ")
+              for cookie in cookies:
+                if cookieBreakOut:
+                  break
+                cookiesplit = cookie.split("=")
+                # now we look to see if we need to add the cookie from the 
+                # list is the issueDetailItems
+                for iditem in idiLines:
+                  if cookieBreakOut:
+                    break
+                  splititem = iditem.lstrip().split(" ")
+                  # print("Searching for: " + splititem  + " (" + burpIssue.find('serialNumber').text + ")")
+                  if len(splititem) > 1:
+                    # print("Split Item: " + splititem[1] + " (" + burpIssue.find('serialNumber').text + ")")
+                    # print(splititem in idiLines)
 
-      if requestLines[0][0:4] == "POST":
-        # find the blank row and grab the data after that
-        rowCount = 0
-        for postline in requestLines:
-          # print("PostLine(" + str(rowCount) + ") " + postline)
-          if postline == "":
-            payload = requestLines[rowCount + 1]
-            for param in payload.split("&"):
-              xmlPayload = SubElement(xmlOutVuln, 'parameter')
-              paramdata = param.split("=")
-              xmlPayload.text = paramdata[0]
-            break
-          rowCount +=1
+                    # print("testing: " + cookiesplit[0] + "=" + splititem[1] + " (" + burpIssue.find('serialNumber').text + ")")
+                    if cookiesplit[0] in splititem[1] and (splititem[1] not in cookiesAdded):
+                      xmlCookie = SubElement(f5Vuln, 'cookie')
+                      xmlCookie.text = cookiesplit[0]
+                      cookiesAdded.append(splititem[1])
+                      # print("Success!")
+                      cookieBreakOut = True
+                      break
+          else:
+            xmlHeaderItem = SubElement(f5Vuln, 'header')
+            xmlHeaderItem.text = header
+      else:
+        if burpIssueItem.tag != "url":
+          xmlOutItem = SubElement(f5Vuln, burpIssueItem.tag)
+          xmlOutItem.text = burpIssueItem.text
 
-        foundone = 0
-
-      _, headers = requestData.split('\r\n',1)
-
-      message = email.message_from_file(StringIO(headers))
-
-      # construct a dictionary containing the headers
-      headers = dict(message.items())
-      # xmlHeaderItems = SubElement(xmlOutVuln, 'headers')
-
-      for header in headers:
-        if header == "Cookie":
-          # xmlCookiesOutItems = SubElement(xmlOutVuln, 'cookies')
-          cookies = headers[header].split("; ")
-          for cookie in cookies:
-            cookiesplit = cookie.split("=")
-            xmlCookie = SubElement(xmlOutVuln, 'cookie')
-            xmlCookie.text = cookiesplit[0]
-          #   xmlCookieOutItem = SubElement(xmlCookiesOutItems, cookiesplit[0])
-          #   xmlCookieOutItem.text = cookiesplit[1]
-        else:
-          xmlHeaderItem = SubElement(xmlOutVuln, 'header')
-          xmlHeaderItem.text = header
-    else:
-      if subitem.tag != "url":
-        xmlOutItem = SubElement(xmlOutVuln, subitem.tag)
-        xmlOutItem.text = subitem.text
-
-  # out of the vulnerability, add some concatenated items
-  xmlOutURL = SubElement(xmlOutVuln, "url")
-  xmlOutURL.text = hostname + path
-  
-  if foundone == 1:
-    break
-
+    # out of the vulnerability, add some concatenated items
+    xmlOutURL = SubElement(f5Vuln, "url")
+    xmlOutURL.text = hostname + path
+    
+    if foundone == 1:
+      break
 
   
 print(prettify(rootOutput))
