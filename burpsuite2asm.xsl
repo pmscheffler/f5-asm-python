@@ -1,84 +1,6 @@
-XSL='''
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-xmlns:b64="https://github.com/ilyakharlamov/xslt_base64" 
-xmlns:msxsl="urn:schemas-microsoft-com:xslt"  
-xmlns:user="urn:my-scripts" >
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" >
 
 <xsl:output omit-xml-declaration="yes" indent="yes"/>
-<xsl:include href="base64.xsl"/>  <!-- Needed for the Base64-encoding add-in -->
-
-<msxsl:script implements-prefix="user" language="jscript">
-    <![CDATA[
-    
-      // the request doesn't have \n's in it...
-      // note that URL, PARAMETER are possible infoItems
-      function returnHeader(decodedRequest, infoItem){
-        
-        var aHeaders = decodedRequest.split(/\r\n|\n|\r/);
-        var i = 0;
-        for (i = 0; i < aHeaders.length; i++) {
-          var thisItem = aHeaders[i];
-          if (i == 0) {
-            // Method
-            //     URL----------------------------
-            //                                     Scheme
-            //                                          Version
-            // GET /public/unauthorizedMessage.htm HTTP/1.1\r\n
-
-            var value = "UNKNOWN";
-
-            var searchChar = " "; 
-            if (thisItem.indexOf(searchChar) > -1){
-              var thisHeader = thisItem.split(searchChar);
-
-              if (String(infoItem).toLowerCase() == "method"){
-                return thisHeader[0];
-              }
-              
-              var scheme = thisHeader[2].split('/');
-              var slashes = "://";
-              
-              // if(String(thisHeader[1]).charAt(0) == "/") {
-              //  slashes = "://";
-              // }
-              
-              // extract the parameter and remove from URL
-              var param = "";
-              var url = thisHeader[1];
-              
-              if (thisHeader[1].indexOf('?') > -1) {
-                // the URL has a query string
-                var queryString = thisHeader[1].split('?');
-                url = queryString[0];
-                param = queryString[1];
-              }
-              
-              var value = scheme[0] + slashes + url;
-            }
-
-            if (String(infoItem).toLowerCase() == "url"){
-              return (url);
-            } else if (String(infoItem).toLowerCase() == "parameter"){
-              return(param);
-            }  else if (String(infoItem).toLowerCase() == "scheme"){
-              return(String(scheme[0] + slashes).replace(/^\s+|\s+$/g, '')) ;
-            }
-
-            } else {
-            var key = thisItem.substring(0, thisItem.indexOf(':'));
-            var value = thisItem.substring(thisItem.indexOf(':')+1);
-          }
-         
-          // data[key] = value;
-          if (String(key).toLowerCase() == String(infoItem).toLowerCase()) {
-             return(String(value).replace(/^\s+|\s+$/g, ''));
-          }
-        }
-        return (data);
-      }
-    ]]>    
-</msxsl:script>
-
 <xsl:template match="/">
   <scanner_vulnerabilities>
       <xsl:for-each select="//issue">
@@ -240,26 +162,9 @@ xmlns:user="urn:my-scripts" >
             </xsl:otherwise>
           </xsl:choose>
           <originalattack><xsl:value-of select="name" /></originalattack>
-          <name><xsl:value-of select="name"/> { <xsl:value-of select="serialNumber"/> }</name>
-            <xsl:if test="requestresponse/request">
-              <xsl:variable name="vSource">
-                <xsl:value-of select="requestresponse/request" />
-              </xsl:variable>
-              
-              <xsl:variable name="vRequest">
-                <xsl:call-template name="b64:decode">
-                  <xsl:with-param name="base64String" select="$vSource" />
-                </xsl:call-template>
-              </xsl:variable>
-              <parameter>
-                <xsl:value-of select="user:returnHeader(string($vRequest), 'PARAMETER')"/>
-              </parameter>
-            </xsl:if>
-          <!-- <request><xsl:value-of select="$vRequest" /></request> -->
-          <!-- <xsl:value-of select="user:returnHeader(string($vRequest), 'host')"/> -->
-          <url><xsl:value-of select="host"/><xsl:value-of select="path"/>
-             <!-- <xsl:value-of select="user:returnHeader(string($vRequest), 'host')"/> --><!-- <xsl:value-of select="user:returnHeader(string($vRequest), 'url')"/> -->
-          </url>
+          <host><xsl:value-of select="host"/></host>
+          <request><xsl:value-of select="requestresponse/request"/></request>
+          <url><xsl:value-of select="path"/></url>
           <cookie></cookie>
           <threat><xsl:value-of select="severity"/></threat>
           <xsl:variable name="threat_score" select="confidence"/>
@@ -278,9 +183,14 @@ xmlns:user="urn:my-scripts" >
           <severity><xsl:value-of select="severity"/></severity>
           <status>open</status>
           <opened>1</opened>
+          <method><xsl:value-of select="requestresponse/request/@method"/></method>
+          <response-encoding><xsl:value-of select="requestresponse/request/@base64"/></response-encoding>
+          <source-address><xsl:value-of select="host/@ip"/></source-address>
+          <issueDetail><xsl:value-of select="issueDetail"/></issueDetail>
+          <issueDetailItems><xsl:value-of select="issueDetailItems"/>
+          </issueDetailItems>
       </vulnerability>
       </xsl:for-each>
     </scanner_vulnerabilities>
 </xsl:template>
 </xsl:stylesheet>
-'''

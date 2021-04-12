@@ -1,0 +1,148 @@
+﻿Name,Typical severity,Type index,ASM Type
+Ajax request header manipulation (DOM-based),Low,0x00500c00,Other Application Attacks
+Ajax request header manipulation (reflected DOM-based),Low,0x00500c01,Other Application Attacks
+Ajax request header manipulation (stored DOM-based),Low,0x00500c02,Other Application Attacks
+ASP.NET debugging enabled,Medium,0x00100800,Other Application Attacks
+ASP.NET tracing enabled,High,0x00100280,Other Application Attacks
+ASP.NET ViewState without MAC enabled,Low,0x00400600,Other Application Attacks
+Base64-encoded data in parameter,Information,0x00700200,Parameter Tampering
+Browser cross-site scripting filter disabled,Information,0x005009b0,Unsafe CORS configuration
+Cacheable HTTPS response,Information,0x00700100,Other Application Activity
+Cleartext submission of password,High,0x00300100,Logins sent over unencrypted
+Client-side HTTP parameter pollution (reflected),Low,0x00501400,Parameter Tampering
+Client-side HTTP parameter pollution (stored),Low,0x00501401,Parameter Tampering
+Client-side JSON injection (DOM-based),Low,0x00200370,Parameter Tampering
+Client-side JSON injection (reflected DOM-based),Low,0x00200371,Parameter Tampering
+Client-side JSON injection (stored DOM-based),Low,0x00200372,SQL-Injection
+Client-side SQL injection (DOM-based),High,0x00200330,SQL-Injection
+Client-side SQL injection (reflected DOM-based),High,0x00200331,SQL-Injection
+Client-side SQL injection (stored DOM-based),High,0x00200332,Other Application Attacks
+Client-side template injection,High,0x00200308,Injection Attempt
+Client-side XPath injection (DOM-based),Low,0x00200360,XPath Injection
+Client-side XPath injection (reflected DOM-based),Low,0x00200361,XPath Injection
+Client-side XPath injection (stored DOM-based),Low,0x00200362,XPath Injection
+Content type incorrectly stated,Low,0x00800400,Other Application Attacks
+Content type is not specified,Information,0x00800500,Other Application Attacks
+Cookie manipulation (DOM-based),Low,0x00500b00,Other Application Attacks
+Cookie manipulation (reflected DOM-based),Low,0x00500b01,Other Application Attacks
+Cookie manipulation (stored DOM-based),Low,0x00500b02,Other Application Attacks
+Cookie scoped to parent domain,Low,0x00500300,Set-Cookie does not use HTTPOnly keyword
+Cookie without HttpOnly flag set,Low,0x00500600,Set-Cookie does not use HTTPOnly keyword
+Credit card numbers disclosed,Information,0x00600500,Information Leakage - Credit Card
+Cross-domain POST,Information,0x00400500,Unsafe CORS configuration
+Cross-domain Referer leakage,Information,0x00500400,Unsafe CORS configuration
+Cross-domain script include,Information,0x00500500,Unsafe CORS configuration
+Cross-origin resource sharing,Information,0x00200600,Unsafe CORS configuration
+Cross-origin resource sharing: all subdomains trusted,Low,0x00200603,Unsafe CORS configuration
+Cross-origin resource sharing: arbitrary origin trusted,High,0x00200601,Unsafe CORS configuration
+Cross-origin resource sharing: unencrypted origin trusted,Low,0x00200602,Unsafe CORS configuration
+Cross-site request forgery,Medium,0x00200700,Cross-site Request Forgery
+Cross-site scripting (DOM-based),High,0x00200310,Cross Site Scripting (XSS)
+Cross-site scripting (reflected DOM-based),High,0x00200311,Cross Site Scripting (XSS)
+Cross-site scripting (reflected),High,0x00200300,Cross Site Scripting (XSS)
+Cross-site scripting (stored DOM-based),High,0x00200312,Cross Site Scripting (XSS)
+Cross-site scripting (stored),High,0x00200100,Cross Site Scripting (XSS)
+CSS injection (reflected),Medium,0x00501300,Cross Site Scripting (XSS)
+CSS injection (stored),Medium,0x00501301,Cross Site Scripting (XSS)
+Database connection string disclosed,Medium,0x00600080,
+Denial of service (DOM-based),Information,0x00500d00,
+Denial of service (reflected DOM-based),Information,0x00500d01,
+Denial of service (stored DOM-based),Low,0x00500d02,
+Directory listing,Information,0x00600100,Forceful Browsing
+Document domain manipulation (DOM-based),Medium,0x00501100,
+Document domain manipulation (reflected DOM-based),Medium,0x00501101,
+Document domain manipulation (stored DOM-based),Medium,0x00501102,
+DOM data manipulation (DOM-based),Information,0x00501200,
+DOM data manipulation (reflected DOM-based),Information,0x00501201,
+DOM data manipulation (stored DOM-based),Information,0x00501202,
+Duplicate cookies set,Information,0x00400a00,
+Email addresses disclosed,Information,0x00600200,
+Expression Language injection,High,0x00100f20,Injection Attempt
+Extension generated issue,Information,0x08000000,
+External service interaction (DNS),High,0x00300200,
+External service interaction (HTTP),High,0x00300210,
+External service interaction (SMTP),Information,0x00300220,
+File path manipulation,High,0x00100b00,Path Traversal
+File path traversal,High,0x00100300,Path Traversal
+File upload functionality,Information,0x00500980,
+Flash cross-domain policy,High,0x00200400,
+Form action hijacking (reflected),Medium,0x00501500,
+Form action hijacking (stored),Medium,0x00501501,
+Frameable response (potential Clickjacking),Information,0x005009a0,
+HTML does not specify charset,Information,0x00800200,
+HTML uses unrecognized charset,Information,0x00800300,
+HTML5 storage manipulation (DOM-based),Information,0x00500f00,
+HTML5 storage manipulation (reflected DOM-based),Information,0x00500f01,
+HTML5 storage manipulation (stored DOM-based),Information,0x00500f02,
+HTML5 web message manipulation (DOM-based),Information,0x00500e00,
+HTML5 web message manipulation (reflected DOM-based),Information,0x00500e01,
+HTML5 web message manipulation (stored DOM-based),Information,0x00500e02,
+HTTP PUT method is enabled,High,0x00100900,
+HTTP response header injection,High,0x00200200,
+HTTP TRACE method is enabled,Information,0x00500a00,
+Input returned in response (reflected),Information,0x00400c00,
+Input returned in response (stored),Information,0x00400b00,
+JavaScript injection (DOM-based),High,0x00200320,Injection Attempt
+JavaScript injection (reflected DOM-based),High,0x00200321,Injection Attempt
+JavaScript injection (stored DOM-based),High,0x00200322,Injection Attempt
+LDAP injection,High,0x00100500,LDAP Injection
+Link manipulation (DOM-based),Low,0x00501000,
+Link manipulation (reflected DOM-based),Low,0x00501001,
+Link manipulation (reflected),Information,0x00501003,
+Link manipulation (stored DOM-based),Low,0x00501002,
+Link manipulation (stored),Information,0x00501004,
+Local file path manipulation (DOM-based),High,0x00200350,
+Local file path manipulation (reflected DOM-based),High,0x00200351,
+Local file path manipulation (stored DOM-based),High,0x00200352,
+Long redirection response,Information,0x00400800,
+Mixed content,Information,0x01000400,
+Multiple content types specified,Information,0x00800100,
+Open redirection (DOM-based),Low,0x00500110,
+Open redirection (reflected DOM-based),Low,0x00500111,
+Open redirection (reflected),Low,0x00500100,
+Open redirection (stored DOM-based),Medium,0x00500112,
+Open redirection (stored),Medium,0x00500101,
+OS command injection,High,0x00100100,Command Execution
+Out-of-band resource load (HTTP),High,0x00100a00,
+Password field with autocomplete enabled,Low,0x00500800,
+Password returned in later response,Medium,0x00400200,
+Password returned in URL query string,Low,0x00400400,
+Password submitted using GET method,Low,0x00400300,
+Password value set in cookie,Medium,0x00500900,
+Path-relative style sheet import,Information,0x00200328,
+Perl code injection,High,0x00100e00,Injection Attempt
+PHP code injection,High,0x00100c00,Injection Attempt
+Private IP addresses disclosed,Information,0x00600300,
+Private key disclosed,Information,0x00600550,
+Python code injection,High,0x00100f10,Injection Attempt
+Referer-dependent response,Information,0x00400100,
+Robots.txt file,Information,0x00600600,
+Ruby code injection,High,0x00100f00,Injection Attempt
+Serialized object in HTTP message,High,0x00400900,
+Server-side JavaScript code injection,High,0x00100d00,
+Server-side template injection,High,0x00101080,
+Session token in URL,Medium,0x00500700,
+Silverlight cross-domain policy,High,0x00200500,
+SMTP header injection,Medium,0x00200800,
+Social security numbers disclosed,Information,0x00600400,
+Source code disclosure,Low,0x006000b0,
+Spoofable client IP address,Information,0x00400110,
+SQL injection,High,0x00100200,SQL-Injection
+SQL injection (second order),High,0x00100210,SQL-Injection
+SQL statement in request parameter,Medium,0x00400480,
+SSI injection,High,0x00101100,
+SSL certificate,Medium,0x01000100,
+SSL cookie without secure flag set,Medium,0x00500200,
+Strict transport security not enforced,Low,0x01000300,
+Suspicious input transformation (reflected),Information,0x00400d00,
+Suspicious input transformation (stored),Information,0x00400e00,
+Unencrypted communications,Low,0x01000200,
+Unidentified code injection,High,0x00101000,Injection Attempt
+User agent-dependent response,Information,0x00400120,
+WebSocket hijacking (DOM-based),High,0x00200340,
+WebSocket hijacking (reflected DOM-based),High,0x00200341,
+WebSocket hijacking (stored DOM-based),High,0x00200342,
+XML entity expansion,Medium,0x00400700,
+XML external entity injection,High,0x00100400,XML Parser Attack
+XML injection,Medium,0x00100700,XML Parser Attack
+XPath injection,High,0x00100600,XPath Injection

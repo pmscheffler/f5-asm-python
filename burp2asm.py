@@ -147,8 +147,9 @@ if __name__ == "__main__":
 
   debugApp = 0
   transformFile = args.transform
-  reportFile = './report_.xml'
+  reportFile = args.input  #'./report_.xml'
   XSL = openTransformFile(transformFile)
+
   tree = openReport(XSL, reportFile)
   rootOutput = processXML(addParam, debugApp, tree)
   # print(prettify(rootOutput))
