@@ -18,6 +18,23 @@ The Output file includes more info than ASM will consume but can be helpful for 
 The Transform file is a work in progress and if you encounter Vulnerabilities that need to be modified, I encourage you to open an Issue here and I am happy to review them.  The list I currently have are listed in the vuln-mappings CSV but if you feel some need to be re-mapped, please let me know
 
 
+Installation:
+
+Requires Python 3.7+
+Install Python and Pip3
+
+To get the libraries installed:
+pip3 install -r requirements.txt
+
+This should gather up all the libraries you need.
+
+Running:
+
+from the folder, execute:
+python3 ./burp2asm.py --input <yourinputfile.xml> --output <yourtargetfile.xml> --transform ./burpsuite2asm.xsl
+
+
+
 ----
 
 Note: 

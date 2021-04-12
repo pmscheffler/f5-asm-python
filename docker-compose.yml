@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  f5asmpython:
+    image: f5asmpython
+    build:
+      context: .
+      dockerfile: ./Dockerfile
